@@ -71,7 +71,7 @@ def emptyDoubleMatrix(x=3, y=3):
 def emptyDoubleVector(n):
     if isinstance(n, c_int):
         n = n.value
-    assert(isinstance(n, int))
+    assert (isinstance(n, int))
     return (c_double * n)()
 
 
@@ -98,7 +98,6 @@ def matrixToList(x):
 
 
 def stringToCharP(inobject, inlen=None):
-
     """
     :param inobject: input string, int for getting null string of length of int
     :param inlen: optional parameter, length of a given string can be specified
@@ -164,7 +163,6 @@ class DoubleArrayType:
 
     # Cast from a numpy array,
     def from_ndarray(self, param):
-        # return param.data_as(POINTER(c_double))
         # the above older method does not work with functions which take vectors of known size
         return numpy.ctypeslib.as_ctypes(param)
 
@@ -199,12 +197,10 @@ class DoubleMatrixType:
 
     # Cast from a numpy array
     def from_ndarray(self, param):
-        #return param.data_as(POINTER(c_double))
         return numpy.ctypeslib.as_ctypes(param)
 
     # Cast from a numpy matrix
     def from_matrix(self, param):
-        #return param.data_as(POINTER(c_double))
         return numpy.ctypeslib.as_ctypes(param)
 
 
@@ -231,8 +227,7 @@ class IntArrayType:
 
     # Cast from a numpy array
     def from_ndarray(self, param):
-        #return param.data_as(POINTER(c_int)) # not sure if long is same as int, it should be..
-        #return numpy.ctypeslib.as_ctypes(param)
+        # return numpy.ctypeslib.as_ctypes(param)
         return self.from_param(param.tolist())
 
     # Cast from array.array objects
@@ -266,8 +261,7 @@ class BoolArrayType:
 
     # Cast from a numpy array
     def from_ndarray(self, param):
-        #return param.data_as(POINTER(c_int)) # not sure if long is same as int, it should be..
-        #return numpy.ctypeslib.as_ctypes(param)
+        # return numpy.ctypeslib.as_ctypes(param)
         return self.from_param(param.tolist())
 
 
@@ -425,10 +419,11 @@ class SpiceEKSegSum(Structure):
         return self._cdescrs[0:self.ncols]
 
     def __str__(self):
-        return '<SpiceEKSegSum tabnam = %s, nrows = %s, ncols = %s, cnames = %s, cdescrs = %s >' % (self.tabnam, self.nrows, self.ncols, self.cnames, self.cdescrs)
+        return '<SpiceEKSegSum tabnam = %s, nrows = %s, ncols = %s, cnames = %s, cdescrs = %s >' % (
+        self.tabnam, self.nrows, self.ncols, self.cnames, self.cdescrs)
 
 
-#SpiceCell implementation below is inpart from github.com/DaRasch/spiceminer/
+# SpiceCell implementation below is inpart from github.com/DaRasch/spiceminer/
 # and modified as needed for this author, maybe we should work together?
 
 ### helper classes/functions ###
@@ -491,7 +486,8 @@ class SpiceCell(Structure):
         self.data = data
 
     def __str__(self):
-        return '<SpiceCell dtype = %s, length = %s, size = %s, card = %s, isSet = %s, adjust = %s, init = %s, base = %s, data = %s>' % (self.dtype, self.length, self.size, self.card, self.isSet, self.adjust, self.init, self.base, self.data)
+        return '<SpiceCell dtype = %s, length = %s, size = %s, card = %s, isSet = %s, adjust = %s, init = %s, base = %s, data = %s>' % (
+        self.dtype, self.length, self.size, self.card, self.isSet, self.adjust, self.init, self.base, self.data)
 
     def is_int(self):
         return self.dtype == 2
