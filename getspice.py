@@ -59,7 +59,12 @@ def getSpice():
     give_points(points, machine)
 
     result = get_winner(points) + 'packages/cspice.tar.Z'
+
+    if "Windows" in result:
+        result = result.replace('.tar.Z', '.zip')
+
     print('Best option:', result.split('/')[0])
+    print('URL: ', result)
 
     ### DOWNLOAD AND UNPACK BEST PACKAGE ###
     root_dir = os.path.realpath(os.path.dirname(__file__))
@@ -79,7 +84,6 @@ def getSpice():
         proc = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE)
         proc.stdin.write(download.read())
     download.close()
-
     print('CSPICE download and extraction complete...')
 
 
