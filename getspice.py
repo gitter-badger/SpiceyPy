@@ -64,7 +64,7 @@ def getSpice():
         result = result.replace('.tar.Z', '.zip')
 
     print('Best option:', result.split('/')[0])
-    print('URL: ', result)
+    print('URL: ', root_url + result)
 
     ### DOWNLOAD AND UNPACK BEST PACKAGE ###
     root_dir = os.path.realpath(os.path.dirname(__file__))
@@ -74,8 +74,8 @@ def getSpice():
     download = urllib.request.urlopen(root_url + result)
 
     print('Unpacking... (this may take some time!)')
-    if result[:-3] == 'zip':
-        filelike = io.StringIO(download.read())
+    if result.endswith('zip'):
+        filelike = io.BytesIO(download.read())
         with zipfile.ZipFile(filelike, 'r') as archive:
             archive.extractall(root_dir)
         filelike.close()

@@ -7,10 +7,8 @@ import test.gettestkernels as getTestKernels
 import os
 import subprocess
 
-
-module_name = os.path.basename(os.getcwd())
 # Get current working directory
-root_dir = os.path.dirname(__file__)
+root_dir = os.path.dirname(os.path.realpath(__file__))
 # Make the directory path for cspice
 cspice_dir = os.path.join(root_dir, 'cspice')
 # Make the directory path for cspice/lib
@@ -46,7 +44,7 @@ def check_for_spice():
 
 def unpack_cspicelib():
     libfile_path = os.path.join(cspice_dir, 'lib', 'cspice.a')
-
+    print(libfile_path)
     if not os.path.exists(libfile_path):
         messageerr = 'Error, cannot find %s/lib/cspice.a , exiting' % cspice_dir
         sys.exit(messageerr)
